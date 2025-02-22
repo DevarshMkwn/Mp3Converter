@@ -1,0 +1,33 @@
+# Ignore the virtual environment directory
+venv/
+.venv/
+
+# Ignore Python compiled files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Ignore IDE-specific files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Ignore environment variables
+.env
+.env.local
+
+# Ignore pipenv files
+Pipfile
+Pipfile.lock
+
+# Ignore pytest cache
+.pytest_cache/
+
+# Ignore Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Ignore distribution and build files
+dist/
+build/
+*.egg-info/
