@@ -18,7 +18,7 @@ CREATE TABLE users (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-INSERT INTO users (name, email, password) VALUES ('johndoe@example.com', 'SecurePassword123');
+INSERT INTO users (email, password) VALUES ('johndoe@example.com', 'SecurePassword123');
 
 -- Step 6: Apply changes
 FLUSH PRIVILEGES;

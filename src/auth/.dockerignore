@@ -35,7 +35,3 @@ build/
 
 # Ignore node_modules directory
 node_modules/
-
-# Ignore Prettier configuration files
-.prettierrc
-package-lock.json
