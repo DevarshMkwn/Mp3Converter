@@ -8,12 +8,11 @@ load_dotenv()
 server = Flask(__name__)
 
 # Configure MySQL
-server.config["MYSQL_USER"] = os.getenv('MYSQL_USER')
-server.config["MYSQL_PASSWORD"] = os.getenv('MYSQL_PASSWORD')
-server.config["MYSQL_DB"] = os.getenv('MYSQL_DB')
-server.config["MYSQL_PORT"] = int(os.getenv('MYSQL_PORT', 3306))
-server.config["MYSQL_HOST"] = "localhost"
-server.config["SECRET_KEY"] = os.getenv('SECRET_KEY')
+server.config["MYSQL_USER"] = os.environ.get('MYSQL_USER')
+server.config["MYSQL_PASSWORD"] = os.environ.get('MYSQL_PASSWORD')
+server.config["MYSQL_DB"] = os.environ.get('MYSQL_DB')
+server.config["MYSQL_PORT"] = int(os.environ.get('MYSQL_PORT', 3306))
+server.config["MYSQL_HOST"] = os.environ.get('MYSQL_HOST')
 
 # Initialize MySQL
 mysql = MySQL(server)
@@ -45,7 +44,7 @@ def createJwtToken(username, authz):
         'exp': datetime.datetime.now(tz=datetime.timezone.utc) + datetime.timedelta(days=1),
         'iat': datetime.datetime.now(tz=datetime.timezone.utc)
     }
-    token = jwt.encode(payload, server.config["SECRET_KEY"], algorithm='HS256')
+    token = jwt.encode(payload, os.environ.get('JWT_SECRET'), algorithm='HS256')
     return token
 
 @server.route("/validate", methods=["POST"])
@@ -61,7 +60,7 @@ def validate():
     token = parts[1]
 
     try:
-        payload = jwt.decode(token, server.config["SECRET_KEY"], algorithms=['HS256'])
+        payload = jwt.decode(token, os.environ.get("JWT_SECRET"), algorithms=['HS256'])
         return jsonify({'username': payload['username'], 'admin': payload['admin']})
     except jwt.ExpiredSignatureError:
         return "token expired", 401
